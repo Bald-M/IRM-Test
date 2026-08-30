@@ -1,0 +1,37 @@
+{
+  "name": "api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/api/src/main",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "node apps/api/tools/dev.mjs"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/target/surefire-reports"],
+      "options": {
+        "command": "node apps/api/tools/maven.mjs -B -ntp test"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/target"],
+      "options": {
+        "command": "node apps/api/tools/maven.mjs -B -ntp -DskipTests package"
+      }
+    },
+    "verify": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/target"],
+      "options": {
+        "command": "node apps/api/tools/maven.mjs -B -ntp verify"
+      }
+    }
+  },
+  "tags": ["type:app", "platform:java"]
+}
